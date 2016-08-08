@@ -4,14 +4,12 @@ object day1 {
     def main(args: Array[String]): Unit = {
         val lines = getStringFromFile("./input.txt")
 
-        def getDifferenceCount(xs: List[Char], aggregate: Int): Int = xs match {
-            case Nil => aggregate
-            case '(' :: tail => getDifferenceCount(tail, aggregate + 1)
-            case ')' :: tail => getDifferenceCount(tail, aggregate - 1)
-            case _ => throw new IllegalArgumentException
-        }
+        val answer = lines.foldLeft(0)((aggregate, char) => char match {
+            case '(' => aggregate + 1
+            case ')' => aggregate - 1
+        })
 
-        println(getDifferenceCount(lines, 0))
+        println(answer)
     }
 
     def getStringFromFile(fileName: String): List[Char] = {
